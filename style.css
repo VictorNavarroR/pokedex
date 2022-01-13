@@ -1,0 +1,198 @@
+body {
+    background-color: #673ab7;
+    margin: 0;
+    font-family: rubik;
+    color: white;
+    transition: background ease 1s;
+ }
+ /*fonts*/
+@font-face {
+  font-family: 'Pokemon Solid';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Pokemon Solid'), url('./fonts/Pokemon\ Solid.woff') format('woff');
+  color: rgb(255, 241, 85);
+}
+.container{
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.container__title{
+   text-transform: uppercase;
+   text-align: center;
+   font-family: 'Pokemon Solid';
+   color: rgb(255, 241, 85);
+  letter-spacing: 5px;
+  text-shadow: 3px 1px 0 blue;
+}
+.container__pokelist{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  list-style-type: none;
+  grid-gap: 50px 80px;
+  padding: 0;
+}
+.container__li{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+  border-radius: 10px;
+}
+.container__img{
+   width: 50%;
+   height: auto;
+   align-self: center;
+}
+.container__h3{
+  text-transform: uppercase;
+  text-align: center;
+  color: #3b1976;
+}
+.container__smallwrap{
+  padding: 10px 0;
+}
+.container__small{
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  position: relative;
+  top: -15px;
+  box-shadow: 0 2px 6px rgba(74, 74, 74, 0.8);
+}
+.container__loading{
+  text-align: center;
+}
+.container__loading--img{
+  width: 100px;
+  height: auto;
+}
+.container__search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container__search div{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+}
+.container__search p{
+  flex-direction: column;
+}
+.container__span{
+  position: absolute;
+  top:10px;
+  left: 10px;
+  background-color:  rgb(49, 23, 74);
+  display: inline-block;
+  padding: 5px;
+  border-radius: 20px;
+}
+.container__search--typefilter{
+  display: grid !important;
+  gap: 10px;
+  grid-template-columns: repeat(10, 1fr);
+  padding: 30px 0;
+}
+.container__search--typefilter div{
+  border:1px solid white;
+  border-radius: 30px;
+  padding: 20px 0;
+  cursor: pointer;
+  transition: all ease .5s;
+}
+.container__search--typefilter .clear-type {
+  border:1px solid white;
+  background-color: rgb(49, 23, 74);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 20px 0;
+  cursor: pointer;
+  transition: all ease .5s;
+  grid-column: 5/7;
+}
+.container__search--typefilter div:hover{
+  background: rgb(255, 241, 85);
+  border: none;
+}
+.container__search--typefilter .active{
+  background: rgb(255, 241, 85) !important;
+  color: #3b1976;
+  border: none;
+}
+.container__search--input{
+  padding: 15px;
+  border: none;
+  border-radius: 40px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  background: rgba(255, 255, 255, .5);
+}
+.container__search--input:focus-visible {
+  outline: 0 !important;
+  background: white;
+}
+.container__search--btn{
+  padding: 15px;
+  border:none;
+  border-radius: 40px;
+  background: rgb(255, 241, 85);
+  cursor: pointer;
+  position: relative;
+  left: -40px;
+}
+.container__search--btn:hover{
+  background: rgb(113, 27, 106);
+  color: white;
+}
+footer{
+  text-align: center;
+  padding: 100px 0;
+  font-size: .8rem;
+}
+
+/* media queries*/
+
+@media screen and (max-width: 1340px) {
+  .container__pokelist{
+    padding: 0 40px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .container__pokelist{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 768px) {
+  .container__pokelist{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .container__search{
+    padding: 0 40px;
+  }
+  .container__search--typefilter {
+    grid-template-columns: repeat(8, 1fr);
+
+  }
+}
+@media screen and (max-width: 550px) {
+  .container__pokelist{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .container__search--typefilter {
+    grid-template-columns: repeat(5, 1fr);
+
+  }
+  .container__search--typefilter .clear-type{
+    grid-column: 3;
+  }
+}
