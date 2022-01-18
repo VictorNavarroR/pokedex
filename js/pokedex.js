@@ -2,6 +2,7 @@
 
 const pokelist = document.getElementById('pokedex');
 const apiUrl = 'https://pokeapi.co/api/v2';
+
 let pokemoness = [];
 
 const typeColors = {
@@ -37,6 +38,50 @@ const getPokemons = async () => {
             pokemoness.push(json);
         }
 
+        Promise.all(pokemoness).then((values) => {
+            
+            drawPokeList(values);
+            //search functionality
+            const searchInput = document.querySelector('.container__search--input');
+        
+            let timeout = null;
+        
+            searchInput.addEventListener('input', function (e) {
+                clearTimeout(timeout);
+        
+                timeout = setTimeout(function () {
+                    if(e.target.value === '') {
+                        drawPokeList(pokemoness);
+                        document.body.style.background = '#673ab7';
+                    } else {
+                        const result = findPokemon(pokemoness, e.target.value);
+                        const type = result[0]?.types[0].type.name || "unknown";
+                        document.body.style.background = typeColors[type];
+                        drawPokeList(result);
+                        
+                    }
+                }, 1000);
+            });
+        
+            const clearTypeBtn = document.querySelector('.clear-type');
+            clearTypeBtn.addEventListener('click', () => {
+                document.body.style.background = '#673ab7';
+                document.querySelectorAll('.tipo').forEach( elem => elem.classList.remove('active'));
+                searchInput.value = '';
+                drawPokeList(pokemoness);
+            
+            })
+        
+            const findBtn = document.querySelector('.container__search--btn');
+            findBtn.addEventListener('click', () => {
+                if(searchInput.value) {
+                    const result = findPokemon(pokemoness, searchInput.value);
+                    drawPokeList(result);
+                }
+            });
+        
+        });
+
         const loading = document.querySelector('.container__loading');
         loading.remove();
 
@@ -44,50 +89,9 @@ const getPokemons = async () => {
         console.log(`Ha habido un error: ${err}`);
     }
 }
+getPokemons();
 
-getPokemons().then(() => {
-    
-    drawPokeList(pokemoness);
-    //search functionality
-    const searchInput = document.querySelector('.container__search--input');
 
-    let timeout = null;
-
-    searchInput.addEventListener('input', function (e) {
-        clearTimeout(timeout);
-
-        timeout = setTimeout(function () {
-            if(e.target.value === '') {
-                drawPokeList(pokemoness);
-                document.body.style.background = '#673ab7';
-            } else {
-                const result = findPokemon(pokemoness, e.target.value);
-                const type = result[0]?.types[0].type.name || "unknown";
-                document.body.style.background = typeColors[type];
-                drawPokeList(result);
-                
-            }
-        }, 1000);
-    });
-
-    const clearTypeBtn = document.querySelector('.clear-type');
-    clearTypeBtn.addEventListener('click', () => {
-        document.body.style.background = '#673ab7';
-        document.querySelectorAll('.tipo').forEach( elem => elem.classList.remove('active'));
-        searchInput.value = '';
-        drawPokeList(pokemoness);
-    
-    })
-
-    const findBtn = document.querySelector('.container__search--btn');
-    findBtn.addEventListener('click', () => {
-        if(searchInput.value) {
-            const result = findPokemon(pokemoness, searchInput.value);
-            drawPokeList(result);
-        }
-    });
-
-});
 
 const getPokemonTypes = async () => {
     
